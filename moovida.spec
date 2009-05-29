@@ -2,7 +2,7 @@
 
 %define oname	elisa
 
-%define rel	1
+%define rel	2
 
 %define svn	0
 %define pre	0
@@ -33,8 +33,8 @@ Release:	%{release}
 # For bzr:
 # bzr branch lp:~elisa-developers/elisa/relook
 Source0:	http://www.moovida.com/media/public/%{distname}
-# From Debian: disable automatic updates - AdamW 2009/02
-Patch0:		http://patch-tracking.debian.net/patch/series/dl/elisa/0.5.28-1/00_disable-plugin-updates.patch
+# Disable automatic updates - AdamW 2009/02
+Patch0:		moovida-1.0.1-disable_plugin_updates.patch
 License:	GPLv3 and MIT
 Group:		Graphical desktop/Other
 URL:		http://www.moovida.com/
@@ -102,7 +102,7 @@ Moovida was formerly known as Elisa.
 
 %prep
 %setup -q -n %{dirname}
-%patch0 -p0 -b .update_disable
+%patch0 -p1 -b .update_disable
 
 %build
 
