@@ -169,6 +169,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc AUTHORS FAQ FIRST_RUN NEWS RELEASE TRANSLATORS
 %{_bindir}/%{oname}
+%{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_iconsdir}/hicolor/*/apps/*
 %{_mandir}/man1/%{name}.1*
