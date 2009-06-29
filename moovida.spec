@@ -2,7 +2,7 @@
 
 %define oname	elisa
 
-%define rel	1
+%define rel	2
 
 %define svn	0
 %define pre	0
@@ -110,6 +110,10 @@ Moovida was formerly known as Elisa.
 rm -rf %{buildroot}
 python setup.py install --root=%{buildroot} --single-version-externally-managed --compile --optimize=2
 
+pushd %{buildroot}%{_bindir}
+ln -s %{oname} %{name}
+popd
+
 # Install some stuff manually because the build process can't.
 install -D -m644 data/%{name}.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/%{name}.png
 
@@ -126,7 +130,7 @@ cat > %{buildroot}%{_datadir}/applications/%{name}.desktop <<EOF
 [Desktop Entry]
 Name=Moovida Media Center
 Comment=Play movies and songs on TV with remote
-Exec=%{name} %U
+Exec=%{oname} %U
 StartupWMClass=%{name}
 Icon=%{name}
 Terminal=false
