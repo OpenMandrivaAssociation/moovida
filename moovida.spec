@@ -2,7 +2,7 @@
 
 %define oname	elisa
 
-%define rel	2
+%define rel	1
 
 %define svn	0
 %define pre	0
@@ -28,7 +28,7 @@
 
 Summary:	Media center written in Python
 Name:		moovida
-Version:	1.0.2
+Version:	1.0.5
 Release:	%{release}
 # For bzr:
 # bzr branch lp:~elisa-developers/elisa/relook
