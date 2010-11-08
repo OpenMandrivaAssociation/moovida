@@ -2,7 +2,7 @@
 
 %define oname	elisa
 
-%define rel	1
+%define rel	2
 
 %define svn	0
 %define pre	0
