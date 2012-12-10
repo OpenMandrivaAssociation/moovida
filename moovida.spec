@@ -2,26 +2,6 @@
 
 %define oname	elisa
 
-%define rel	2
-
-%define svn	0
-%define pre	0
-%if %svn
-%define release		%mkrel 0.%svn.%rel
-%define distname	%name-%svn.tar.lzma
-%define dirname		%oname
-%else
-%if %pre
-%define release		%mkrel 0.%pre.%rel
-%define distname	%name-%version.%pre.tar.gz
-%define dirname		%oname-%version.%pre
-%else
-%define release		%mkrel %rel
-%define distname	%name-%version.tar.gz
-%define dirname		%oname-%version
-%endif
-%endif
-
 # It's the same for releases, but different for pre-releases: please
 # don't remove, even if it seems superfluous - AdamW 2008/03
 %define fversion	%{version}
@@ -29,17 +9,16 @@
 Summary:	Media center written in Python
 Name:		moovida
 Version:	1.0.9
-Release:	%{release}
+Release:	3
 # For bzr:
 # bzr branch lp:~elisa-developers/elisa/relook
-Source0:	http://www.moovida.com/media/public/%{distname}
+Source0:	http://www.moovida.com/media/public/%{name}-%{version}.tar.gz
 # Disable automatic updates - AdamW 2009/02
 Patch0:		moovida-1.0.1-disable_plugin_updates.patch
 License:	GPLv3 and MIT
 Group:		Graphical desktop/Other
 URL:		http://www.moovida.com/
 BuildArch:	noarch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	python
 BuildRequires:	python-setuptools
 BuildRequires:	python-devel
@@ -52,8 +31,7 @@ Requires:	moovida-plugins-bad = %{version}
 Requires:	moovida-core = %{version}
 Suggests:	moovida-plugins-ugly = %{version}
 Suggests:	gstreamer0.10-libvisual
-Provides:	elisa = %{version}-%{release}
-Obsoletes:	elisa < %{version}-%{release}
+%rename	elisa
 
 %description
 Moovida is a project to create an open source cross platform media center 
@@ -83,10 +61,7 @@ Suggests:	gstreamer0.10-plugins-good
 Suggests:	gstreamer0.10-plugins-bad
 Suggests:	python-gpod
 Suggests:	python-dbus
-# To fix upgrade: thanks fcrozat (#44627) - AdamW 2008/10
-Conflicts:	elisa-plugins-good <= 0.3.5
-Provides:	elisa-core = %{version}-%{release}
-Obsoletes:	elisa-core < %{version}-%{release}
+%rename	elisa-core = %{version}-%{release}
 
 %description core
 Moovida is a project to create an open source cross platform media center 
@@ -101,13 +76,12 @@ split from the binaries for packaging reasons.
 Moovida was formerly known as Elisa.
 
 %prep
-%setup -q -n %{dirname}
+%setup -q -n %{oname}-%{version}
 %patch0 -p1 -b .update_disable
 
 %build
 
 %install
-rm -rf %{buildroot}
 python setup.py install --root=%{buildroot} --single-version-externally-managed --compile --optimize=2
 
 pushd %{buildroot}%{_bindir}
@@ -150,23 +124,7 @@ rm -rf %{buildroot}%{_datadir}/mobile-basic-flash
 # let the core package own the plugins dir - AdamW 2008/02
 mkdir -p %{buildroot}%{py_puresitedir}/%{name}/plugins
 
-%if %mdkversion < 200900
-%post
-%{update_menus}
-%{update_icon_cache hicolor}
-%endif
-
-%if %mdkversion < 200900
-%postun
-%{clean_menus}
-%{clean_icon_cache hicolor}
-%endif
-
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc AUTHORS FAQ FIRST_RUN NEWS RELEASE TRANSLATORS
 %{_bindir}/%{oname}
 %{_bindir}/%{name}
@@ -176,8 +134,9 @@ rm -rf %{buildroot}
 %{_datadir}/dbus-1/services/*.service
 
 %files core
-%defattr(-,root,root)
 %{py_puresitedir}/%{name}
 %{py_puresitedir}/%{oname}
-%{py_puresitedir}/%{oname}-%{fversion}-py%{pyver}-nspkg.pth
-%{py_puresitedir}/%{oname}-%{fversion}-py%{pyver}.egg-info
+%{py_puresitedir}/%{oname}-%{fversion}-py%{py_ver}-nspkg.pth
+%{py_puresitedir}/%{oname}-%{fversion}-py%{py_ver}.egg-info
+
+
