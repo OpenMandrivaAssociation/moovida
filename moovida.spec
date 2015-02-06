@@ -9,7 +9,7 @@
 Summary:	Media center written in Python
 Name:		moovida
 Version:	1.0.9
-Release:	3
+Release:	4
 # For bzr:
 # bzr branch lp:~elisa-developers/elisa/relook
 Source0:	http://www.moovida.com/media/public/%{name}-%{version}.tar.gz
