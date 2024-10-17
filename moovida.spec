@@ -17,7 +17,7 @@ Source0:	http://www.moovida.com/media/public/%{name}-%{version}.tar.gz
 Patch0:		moovida-1.0.1-disable_plugin_updates.patch
 License:	GPLv3 and MIT
 Group:		Graphical desktop/Other
-URL:		http://www.moovida.com/
+URL:		https://www.moovida.com/
 BuildArch:	noarch
 BuildRequires:	python
 BuildRequires:	python-setuptools
